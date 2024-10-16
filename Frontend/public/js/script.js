@@ -9,18 +9,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const passwordBox = document.getElementById('passbox');
 
     usernameInput.addEventListener('input', validateInputs);
-    
+    passwordInput.addEventListener('input', validateInputs); // ตรวจสอบรหัสผ่านด้วย
 
     function validateInputs() {
         const usernameValid = /^\d{10}$/.test(usernameInput.value);
-       
+        const passwordValid = passwordInput.value.length >= 6; // รหัสผ่านต้องมีมากกว่า 6 ตัวอักษร
 
         if (!usernameValid) {
-            usernameBox.style.border = '3px solid #9d0208';
-            passwordBox.style.border = '2px solid #495057';
+            usernameBox.style.border = '3px solid #9d0208'; // ขอบแดงถ้า username ไม่ถูกต้อง
         } else {
-            usernameBox.style.border = '2px solid #495057';
-            passwordBox.style.border = '2px solid #495057';
+            usernameBox.style.border = '2px solid #495057'; // ขอบสีปกติถ้าถูกต้อง
+        }
+
+        if (!passwordValid) {
+            passwordBox.style.border = '3px solid #9d0208'; // ขอบแดงถ้ารหัสผ่านน้อยกว่า 6 ตัวอักษร
+        } else {
+            passwordBox.style.border = '2px solid #495057'; // ขอบสีปกติถ้าถูกต้อง
         }
     }
 
@@ -37,7 +41,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const usernameValid = /^\d{10}$/.test(username);
-        const passwordValid = password;
+        const passwordValid = password.length >= 6; // ตรวจสอบว่ารหัสผ่านมีมากกว่า 6 ตัวอักษร
+
+        if (!usernameValid) {
+            showModal(`
+                <p class="login-failed">Alert !</p>
+                <p class="login-failed-message">Username must be 10 digits</p>
+            `);
+            return;
+        }
+
+        if (!passwordValid) {
+            showModal(`
+                <p class="login-failed">Alert !</p>
+                <p class="login-failed-message">Password must be at least 6 characters long</p>
+            `);
+            return;
+        }
 
         if (usernameValid && passwordValid) {
             fetch('https://restapi.tu.ac.th/api/v1/auth/Ad/verify', {
@@ -78,17 +98,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p class="login-failed-message">Error: ${error}</p>
                 `);
             });
-        } else {
-            showModal(`
-                <p class="login-failed">Alert !</p>
-                <p class="login-failed-message">Username must be 10 digits</p>
-            `);
-        
-            
         }
     }
 
-  const modalBackdrop = document.createElement('div');
+    const modalBackdrop = document.createElement('div');
     modalBackdrop.classList.add('modal-backdrop');
     document.body.appendChild(modalBackdrop);
 
@@ -104,4 +117,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     window.submitLogin = submitLogin;
+
+    const togglePasswordButton = document.getElementById('togglePassword');
+
+    togglePasswordButton.addEventListener('click', function () {
+        // เปลี่ยนประเภท input ระหว่าง password และ text
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // เปลี่ยนข้อความของปุ่มระหว่าง Show และ Hide
+        this.textContent = type === 'password' ? 'Show' : 'Hide';
+    });
 });

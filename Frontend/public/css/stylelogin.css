@@ -183,6 +183,22 @@ input:focus {
     z-index: 999;
     display: none; /* ซ่อนเมื่อไม่ได้แสดง */
 }
+.toggle-password-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #495057;
+    font-size: 14px;
+	font-family: Poppins;
+	padding: 5px;
+	width: 55px;
+}
+.toggle-password-btn:hover {
+    text-decoration: underline; /* ขีดเส้นใต้เมื่อ hover */
+}
 
 
 
+#password {
+	width: 180px;
+}
