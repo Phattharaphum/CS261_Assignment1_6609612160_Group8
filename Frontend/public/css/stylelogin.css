@@ -90,7 +90,7 @@ input:focus {
     cursor: pointer;
     font-size: 18px;
 	font-family: Poppins;
-	font-weight: 200;
+	font-weight: 600;
 }
 
 .login-btn:hover {

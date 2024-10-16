@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!username || !password) {
             showModal(`
-                <p class="login-failed"><span class="spatata">Error:</span></p>
-                <p class="login-failed-message">Please fill in both username and password.</p>
+                <p class="login-failed"><span class="spatata">Login Failed !</span></p>
+                <p class="login-failed-message">Username and Password Fields Must Be Filled.</p>
             `);
             return; 
         }
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Application-Key': '-'
+                    'Application-Key': ''
                 },
                 body: JSON.stringify({
                     UserName: username,
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 if (data.status === true) {
                     showModal(`
-                        <p class="login-success">Login successful!</p>
+                        <p class="login-success">Login successful !</p>
                         <p class="username"><span class="spatata">Username:</span> ${data.username}</p>
                         <p class="email"><span class="spatata">Email:</span> ${data.email}</p>
                         <p class="displayname-en"><span class="spatata">Name (EN):</span> ${data.displayname_en}</p>
@@ -67,20 +67,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     passwordInput.value = '';
                 } else {
                     showModal(`
-                        <p class="login-failed">Login failed</p>
+                        <p class="login-failed">Login Failed !</p>
                         <p class="login-failed-message">${data.message}</p>
                     `);
                 }
             })
             .catch(error => {
                 showModal(`
-                    <p class="login-failed">Error</p>
+                    <p class="login-failed">Error !</p>
                     <p class="login-failed-message">Error: ${error}</p>
                 `);
             });
         } else {
             showModal(`
-                <p class="login-failed">Error</p>
+                <p class="login-failed">Alert !</p>
                 <p class="login-failed-message">Username must be 10 digits</p>
             `);
         
