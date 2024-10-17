@@ -8,14 +8,12 @@
 	flex-direction: column;
 
 }
-
 body {
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
 	font-family: Poppins;
 }
-
 .logo {
 	width: 120px;
 	margin: auto;
